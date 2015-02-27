@@ -1,0 +1,99 @@
+<ion-view title="Special Deals" class="view" ng-cloak>
+  <ion-nav-bar class="bar-dark" animation="nav-title-slide-ios7">
+    <button class="button button-icon ion-navicon button-clear" ng-click="toggleLeft()"></button>
+    <ion-nav-buttons side="right">
+      <button class="button button-clear " id="pig" ng-click="openPopover($event)">
+        blah.
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-side-menus>
+    <ion-side-menu-content>
+      <ion-slide-box on-slide-changed="slideChanged(index)" class="main-slider" delegate-handle="main-slider">
+        <ion-slide>
+          <div id="subheader"></div>
+          <div class="card dailydeal">
+            <div class="item item-divider">
+              Daily Deal
+            </div>
+
+             <div class="item item-image">
+             <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{dailyDeal.appid}}/header.jpg">
+            </div>
+
+            <div class="item item-text-wrap">
+              <div class="row">
+              <div class="col discount">{{dailyDeal.discount}}</div>
+              
+              <div class="col col-50"><strike>{{dailyDeal.originalprice}}</strike><br>{{dailyDeal.finalprice}}</div>
+            </div>
+            </div>
+          </div>
+
+          <div class="card specialdeals" ng-controller='GalleryCtrl'>
+            <div class="item item-divider">
+              {{getDealName()}}
+            </div>
+
+            <ion-slide-box does-continue="true" auto-play="true" on-slide-changed="slideChanged(index)" show-pager="false" class="gallery-slider"delegate-handle="gallery-slider">
+              <ion-slide ng-repeat='app in featuredDeals'>
+                <div class="item item-image" on-touch="onTouch()" on-release="onRelease()">
+                  <img ng-src="{{app.imageUrl}}"  alt='Thumbnail' holder>
+                </div>
+                <div class="item item-text-wrap">
+                  {{app.name}}
+                </div>
+              </ion-slide>
+
+            </ion-slide-box>
+        </div>
+      </ion-slide>
+
+      <ion-slide>
+        <div id="subheader"></div>
+        <ion-content>
+          <!-- <div class="card listitem" ng-repeat="app in appItems">
+            <div class="item item-divider">
+              {{app.name}}
+            </div>
+            <div class="item item-image">
+              <img ng-src="{{app.imageUrl}}" holder>
+            </div>
+            <div class="item item-text-wrap">
+            <div class="row">
+              <div class="col discount">{{app.discount}}</div>
+              <div class="col col-67"><strike>{{app.originalprice}}</strike><br>{{app.finalprice}}</div>
+            </div>
+            
+            </div>
+          </div> -->
+          <div class="card listitem" 
+            collection-repeat="app in appItems"
+            collection-item-width="'50%'"
+            collection-item-height="'33%'">
+            <div class="item item-divider">
+              {{app.name}}
+            </div>
+            <div class="item item-image">
+              <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{app.appid}}/capsule_184x69.jpg" holder>
+            </div>
+            <div class="item item-text-wrap">
+              <div class="row">
+                <div class="col discount">{{app.discount}}</div>
+                <div class="col col-67"><strike>{{app.originalprice}}</strike><br>{{app.finalprice}}</div>
+              </div>
+            </div>
+          </div>
+        </ion-content>
+      </ion-slide>
+
+    </ion-slide-box>
+  </ion-side-menu-content>
+  
+  <ion-side-menu side="left"></ion-side-menu>
+  </ion-side-menus>
+  
+  
+
+</ion-view>

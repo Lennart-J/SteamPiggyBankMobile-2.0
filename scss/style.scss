@@ -1,0 +1,117 @@
+html {
+  font-size: 62.5%;
+}
+
+.main-slider {
+  background-color: #00466e;
+
+  &.slider {
+    height: 100%;
+
+    .slider-slide {
+      //padding-top: 40px;
+      color: #000;
+      text-align: center;
+      font-family: tahoma, Helvetica, Arial, trebuchet ms, sans-serif; 
+      font-weight: 300;
+    }
+  }
+}
+
+
+.bar-dark {
+  box-shadow:0 4px 4px #333;
+}
+
+ #subheader {
+  margin-bottom: 50px;
+ } 
+
+ .card {
+    //border: 1px grey solid;
+ }
+
+ .appitem {
+    box-shadow:0 3px 6px #333;
+    .item-image, .item-text-wrap, .item-divider {
+       border:0;
+    }
+    .item-text-wrap {
+      min-height:50px;
+      padding: 4px 2px;
+      .row {
+        padding: 0;
+      }
+      .col {
+        padding:0;
+      }
+      .col.discount {
+        width:100%;
+        text-size:0.9em;
+        margin: 5% 0;
+        padding-left:2px;
+        //text-align: right;
+        white-space: nowrap;
+      }
+      .col.col-67 {
+        padding-right:2px;
+        font-size: 0.9em;
+        text-align: right;
+
+        strike {
+          color:lighten(black, 50%);
+          font-size: 0.8em;
+        }
+      }
+      
+    }
+    
+ }
+
+.listitem {
+  @extend .appitem;
+  width: 45%;
+  margin: 3px 4px;
+  left:0;
+  right:0;
+  img {
+      max-width:100%;
+      height: auto;
+    }
+  
+}
+
+.dailydeal {
+  @extend .appitem;
+  img {
+    }
+}
+
+.specialdeals {
+  @extend .appitem;
+  position:relative;
+}
+
+ #placeholder {
+   height: 40px;
+ }
+
+#logo {
+  margin: 30px 0px;
+}
+
+#list {
+  width: 170px;
+  margin: 30px auto;
+  font-size: 20px;
+
+  ol {
+    margin-top: 30px;
+
+    li {
+      text-align: left;
+      list-style: decimal;
+      margin: 10px 0px;
+    }
+  }
+}
