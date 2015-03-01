@@ -37,8 +37,8 @@
             </div>
 
             <ion-slide-box does-continue="true" auto-play="true" on-slide-changed="slideChanged(index)" show-pager="false" class="gallery-slider"delegate-handle="gallery-slider">
-              <ion-slide ng-repeat='app in featuredDeals'>
-                <div class="item item-image" on-touch="onTouch()" on-release="onRelease()">
+              <ion-slide ng-repeat='app in featuredDeals' on-touch="onTouch()" on-release="onRelease()">
+                <div class="item item-image">
                   <img ng-src="{{app.imageUrl}}"  alt='Thumbnail' holder>
                 </div>
                 <div class="item item-text-wrap">
@@ -53,35 +53,20 @@
       <ion-slide>
         <div id="subheader"></div>
         <ion-content>
-          <!-- <div class="card listitem" ng-repeat="app in appItems">
-            <div class="item item-divider">
-              {{app.name}}
-            </div>
-            <div class="item item-image">
-              <img ng-src="{{app.imageUrl}}" holder>
-            </div>
-            <div class="item item-text-wrap">
-            <div class="row">
-              <div class="col discount">{{app.discount}}</div>
-              <div class="col col-67"><strike>{{app.originalprice}}</strike><br>{{app.finalprice}}</div>
-            </div>
-            
-            </div>
-          </div> -->
           <div class="card listitem" 
             collection-repeat="app in appItems"
             collection-item-width="'50%'"
-            collection-item-height="'33%'">
+            collection-item-height="'28%'">
             <div class="item item-divider">
               {{app.name}}
             </div>
             <div class="item item-image">
               <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{app.appid}}/capsule_184x69.jpg" holder>
             </div>
-            <div class="item item-text-wrap">
+            <div class="item item-text-wrap no-padding">
               <div class="row">
                 <div class="col discount">{{app.discount}}</div>
-                <div class="col col-67"><strike>{{app.originalprice}}</strike><br>{{app.finalprice}}</div>
+                <div class="col col-50"><strike>{{app.originalprice}}</strike><br>{{app.finalprice}}</div>
               </div>
             </div>
           </div>

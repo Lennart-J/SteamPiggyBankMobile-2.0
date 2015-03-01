@@ -7018,6 +7018,9 @@ a.button {
 html {
   font-size: 62.5%; }
 
+.no-padding {
+  padding: 0 !important; }
+
 .main-slider {
   background-color: #00466e; }
   .main-slider.slider {
@@ -7038,31 +7041,31 @@ html {
   box-shadow: 0 3px 6px #333; }
   .appitem .item-image, .appitem .listitem, .appitem .dailydeal, .appitem .specialdeals, .appitem .item-text-wrap, .appitem .listitem, .appitem .dailydeal, .appitem .specialdeals, .appitem .item-divider, .appitem .listitem, .appitem .dailydeal, .appitem .specialdeals {
     border: 0; }
-  .appitem .item-text-wrap, .appitem .listitem, .appitem .dailydeal, .appitem .specialdeals {
-    min-height: 50px;
-    padding: 4px 2px; }
-    .appitem .item-text-wrap .row, .appitem .item-text-wrap .listitem, .appitem .item-text-wrap .dailydeal, .appitem .item-text-wrap .specialdeals {
+  .appitem .item.item-text-wrap, .appitem .listitem, .appitem .dailydeal, .appitem .specialdeals {
+    min-height: 40px;
+    padding: 0; }
+    .appitem .item.item-text-wrap .row, .appitem .item.item-text-wrap .listitem, .appitem .item.item-text-wrap .dailydeal, .appitem .item.item-text-wrap .specialdeals {
       padding: 0; }
-    .appitem .item-text-wrap .col, .appitem .item-text-wrap .listitem, .appitem .item-text-wrap .dailydeal, .appitem .item-text-wrap .specialdeals {
+    .appitem .item.item-text-wrap .col, .appitem .item.item-text-wrap .listitem, .appitem .item.item-text-wrap .dailydeal, .appitem .item.item-text-wrap .specialdeals {
       padding: 0; }
-    .appitem .item-text-wrap .col.discount, .appitem .item-text-wrap .listitem, .appitem .item-text-wrap .dailydeal, .appitem .item-text-wrap .specialdeals {
+    .appitem .item.item-text-wrap .col.discount, .appitem .item.item-text-wrap .listitem, .appitem .item.item-text-wrap .dailydeal, .appitem .item.item-text-wrap .specialdeals {
       width: 100%;
       text-size: 0.9em;
       margin: 5% 0;
-      padding-left: 2px;
+      padding-left: 0px;
       white-space: nowrap; }
-    .appitem .item-text-wrap .col.col-67, .appitem .item-text-wrap .listitem, .appitem .item-text-wrap .dailydeal, .appitem .item-text-wrap .specialdeals {
+    .appitem .item.item-text-wrap .col.col-67, .appitem .item.item-text-wrap .listitem, .appitem .item.item-text-wrap .dailydeal, .appitem .item.item-text-wrap .specialdeals {
       padding-right: 2px;
       font-size: 0.9em;
       text-align: right; }
-      .appitem .item-text-wrap .col.col-67 strike, .appitem .item-text-wrap .col.col-67 .listitem, .appitem .item-text-wrap .col.col-67 .dailydeal, .appitem .item-text-wrap .col.col-67 .specialdeals {
+      .appitem .item.item-text-wrap .col.col-67 strike, .appitem .item.item-text-wrap .col.col-67 .listitem, .appitem .item.item-text-wrap .col.col-67 .dailydeal, .appitem .item.item-text-wrap .col.col-67 .specialdeals {
         color: #808080;
         font-size: 0.8em; }
 
 .listitem {
-  width: 45%;
+  width: 47%;
   margin: 3px 4px;
-  left: 0;
+  left: 2px;
   right: 0; }
   .listitem img {
     max-width: 100%;

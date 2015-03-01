@@ -85,10 +85,10 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate'])
   // Called each time the slide changes
   $scope.slideChanged = function(index) {
     $scope.slideIndex = index;
-    if (index === 0) {
+    if (index === 1) {
       setNavTitle('Special Deals');
 
-    } else if (index === 1) {
+    } else if (index === 2) {
       setNavTitle('All Current Deals');
 
     }
@@ -103,6 +103,7 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate'])
   };
 
   $scope.$watch($ionicSideMenuDelegate.isOpenLeft, function(bool) {
+    console.log("watch isOpenLeft: ", bool);
     if (bool) {
       $ionicSlideBoxDelegate.$getByHandle('main-slider').enableSlide(false);
       $ionicSlideBoxDelegate.$getByHandle('gallery-slider').enableSlide(false);
@@ -113,6 +114,7 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate'])
   });
 
   $scope.$watch($ionicSlideBoxDelegate.currentIndex, function(index) {
+    console.log("watch slideIndex: ", index);
     if (index === 0) {
       swipeGesture = $ionicGesture.on('swiperight', showSideMenuOnSwipe, mainSlider);
     } else if (swipeGesture !== null) {

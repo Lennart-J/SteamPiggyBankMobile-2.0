@@ -2,6 +2,10 @@ html {
   font-size: 62.5%;
 }
 
+.no-padding {
+  padding: 0 !important;
+}
+
 .main-slider {
   background-color: #00466e;
 
@@ -36,9 +40,9 @@ html {
     .item-image, .item-text-wrap, .item-divider {
        border:0;
     }
-    .item-text-wrap {
-      min-height:50px;
-      padding: 4px 2px;
+    .item.item-text-wrap {
+      min-height:40px;
+      padding: 0;
       .row {
         padding: 0;
       }
@@ -49,7 +53,7 @@ html {
         width:100%;
         text-size:0.9em;
         margin: 5% 0;
-        padding-left:2px;
+        padding-left:0px;
         //text-align: right;
         white-space: nowrap;
       }
@@ -70,9 +74,9 @@ html {
 
 .listitem {
   @extend .appitem;
-  width: 45%;
+  width: 47%;
   margin: 3px 4px;
-  left:0;
+  left:2px;
   right:0;
   img {
       max-width:100%;
