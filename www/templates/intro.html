@@ -1,18 +1,16 @@
 <ion-view title="Special Deals" class="view" ng-cloak>
-  <ion-nav-bar class="bar-dark" animation="nav-title-slide-ios7">
-    <button class="button button-icon ion-navicon button-clear" ng-click="toggleLeft()"></button>
-    <ion-nav-buttons side="right">
-      <button class="button button-clear " id="pig" ng-click="openPopover($event)">
-        blah.
-      </button>
+  <ion-nav-bar class="bar-dark" animation="nav-title-slide-ios7" align-title="center">
+    <ion-nav-buttons side="left">
+     <button ng-click="toggleLeft()" class="button button-icon icon ion-navicon"></button>
     </ion-nav-buttons>
   </ion-nav-bar>
 
   <ion-side-menus>
-    <ion-side-menu-content>
-      <ion-slide-box on-slide-changed="slideChanged(index)" class="main-slider" delegate-handle="main-slider">
-        <ion-slide>
+    <ion-side-menu-content drag-content="false" enable-menu-with-back-views="false">
+      <ion-slide-box on-slide-changed="slideChanged(index)" class="main-slider" delegate-handle="main-slider" show-pager="true">
+        <ion-slide on-touch="onTouch()" on-release="onRelease()">
           <div id="subheader"></div>
+          <ion-content has-bouncing="false" >
           <div class="card dailydeal">
             <div class="item item-divider">
               Daily Deal
@@ -36,7 +34,7 @@
               {{getDealName()}}
             </div>
 
-            <ion-slide-box does-continue="true" auto-play="true" on-slide-changed="slideChanged(index)" show-pager="false" class="gallery-slider"delegate-handle="gallery-slider">
+            <ion-slide-box does-continue="true" auto-play="true" on-slide-changed="slideChanged(index)" show-pager="false" class="gallery-slider" delegate-handle="gallery-slider">
               <ion-slide ng-repeat='app in featuredDeals' on-touch="onTouch()" on-release="onRelease()">
                 <div class="item item-image">
                   <img ng-src="{{app.imageUrl}}"  alt='Thumbnail' holder>
@@ -48,11 +46,12 @@
 
             </ion-slide-box>
         </div>
+        </ion-content>
       </ion-slide>
 
-      <ion-slide>
+      <ion-slide on-drag-up="scrolling()" on-drag-down="scrolling()" on-drag-left="sliding()" on-drag-right="sliding()" on-swipe-left="sliding()" on-swipe-right="sliding()" on-swipe-up="scrolling()" on-swipe-down="scrolling()">
         <div id="subheader"></div>
-        <ion-content>
+        <ion-content has-bouncing="false" overflow-scroll="false">
           <div class="card listitem" 
             collection-repeat="app in appItems"
             collection-item-width="'50%'"
