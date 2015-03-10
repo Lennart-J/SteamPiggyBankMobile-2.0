@@ -1,9 +1,9 @@
-html {
-  font-size: 62.5%;
-}
-
 .no-padding {
   padding: 0 !important;
+}
+
+.less-padding {
+   padding: 5px !important;
 }
 
 .main-slider {
@@ -22,9 +22,13 @@ html {
   }
 }
 
+.has-header {
+  top:28px;
+}
 
 .bar-dark {
-  box-shadow:0 4px 4px #333;
+  border-color:#222 !important;
+  box-shadow:0 3px 3px #333;
 }
 
  #subheader {
@@ -35,13 +39,17 @@ html {
     //border: 1px grey solid;
  }
 
+ .old-price {
+  color:#999;
+ }
+
  .appitem {
     box-shadow:0 3px 6px #333;
     .item-image, .item-text-wrap, .item-divider {
        border:0;
     }
     .item.item-text-wrap {
-      min-height:40px;
+      min-height:20px;
       padding: 0;
       .row {
         padding: 0;
@@ -51,9 +59,9 @@ html {
       }
       .col.discount {
         width:100%;
-        text-size:0.9em;
-        margin: 5% 0;
-        padding-left:0px;
+        text-size:1.2em;
+        //margin: 5% 0;
+        padding:0px;
         //text-align: right;
         white-space: nowrap;
       }
@@ -63,7 +71,7 @@ html {
         text-align: right;
 
         strike {
-          color:lighten(black, 50%);
+          color: #333;
           font-size: 0.8em;
         }
       }
@@ -74,7 +82,8 @@ html {
 
 .listitem {
   @extend .appitem;
-  width: 47%;
+  max-width: 47%;
+  //max-height: 150px;
   margin: 3px 4px;
   left:4px;
   right:0;
@@ -87,13 +96,21 @@ html {
 
 .dailydeal {
   @extend .appitem;
+  margin: 0 10px;
   img {
     }
 }
 
 .specialdeals {
   @extend .appitem;
+  .item.item-text-wrap {
+      max-height:30px;
+    }
   position:relative;
+}
+
+.gallery-slider {
+  max-height: 50%;
 }
 
  #placeholder {

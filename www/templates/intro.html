@@ -8,9 +8,9 @@
   <ion-side-menus>
     <ion-side-menu-content drag-content="false" enable-menu-with-back-views="false">
       <ion-slide-box on-slide-changed="slideChanged(index)" class="main-slider" delegate-handle="main-slider" show-pager="true">
-        <ion-slide on-touch="onTouch()" on-release="onRelease()">
+        <ion-slide on-touch="onTouch()" on-release="onRelease()" class="has-header">
           <div id="subheader"></div>
-          <ion-content has-bouncing="false" >
+          <ion-content has-bouncing="false">
           <div class="card dailydeal">
             <div class="item item-divider">
               Daily Deal
@@ -20,11 +20,11 @@
              <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{dailyDeal.appid}}/header.jpg">
             </div>
 
-            <div class="item item-text-wrap">
+            <div class="item item-text-wrap no-padding">
               <div class="row">
               <div class="col discount">{{dailyDeal.discount}}</div>
               
-              <div class="col col-50"><strike>{{dailyDeal.originalprice}}</strike><br>{{dailyDeal.finalprice}}</div>
+              <div class="col col-50 old-price"><strike>{{dailyDeal.originalprice}}</strike><br>{{dailyDeal.finalprice}}</div>
             </div>
             </div>
           </div>
@@ -39,7 +39,7 @@
                 <div class="item item-image">
                   <img ng-src="{{app.imageUrl}}"  alt='Thumbnail' holder>
                 </div>
-                <div class="item item-text-wrap">
+                <div class="item item-text-wrap less-padding">
                   {{app.name}}
                 </div>
               </ion-slide>
@@ -49,21 +49,22 @@
         </ion-content>
       </ion-slide>
 
-      <ion-slide on-drag-up="scrolling()" on-drag-down="scrolling()" on-drag-left="sliding()" on-drag-right="sliding()" on-swipe-left="sliding()" on-swipe-right="sliding()" on-swipe-up="scrolling()" on-swipe-down="scrolling()">
+      <ion-slide class="has-header" on-swipe-left="sliding()" on-swipe-right="sliding()" on-swipe-up="scrolling()" on-swipe-down="scrolling()">
         <div id="subheader"></div>
         <ion-content has-bouncing="false" overflow-scroll="false">
           <div class="card listitem" 
             collection-repeat="app in appItems"
             collection-item-width="'50%'"
-            collection-item-height="'28%'">
+            collection-item-height="'160px'">
             <div class="item item-divider">
+              <!-- <i class="icon ion-loading-c" style="font-size: 28px"></i> -->
               {{app.name}}
             </div>
             <div class="item item-image">
               <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{app.appid}}/capsule_184x69.jpg" holder>
             </div>
             <div class="item item-text-wrap no-padding">
-              <div class="row">
+              <div class="row no-padding">
                 <div class="col discount">{{app.discount}}</div>
                 <div class="col col-50"><strike>{{app.originalprice}}</strike><br>{{app.finalprice}}</div>
               </div>

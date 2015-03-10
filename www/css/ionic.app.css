@@ -7015,11 +7015,11 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
-html {
-  font-size: 62.5%; }
-
 .no-padding {
   padding: 0 !important; }
+
+.less-padding {
+  padding: 5px !important; }
 
 .main-slider {
   background-color: #00466e; }
@@ -7031,18 +7031,25 @@ html {
       font-family: tahoma, Helvetica, Arial, trebuchet ms, sans-serif;
       font-weight: 300; }
 
+.has-header {
+  top: 28px; }
+
 .bar-dark {
-  box-shadow: 0 4px 4px #333; }
+  border-color: #222 !important;
+  box-shadow: 0 3px 3px #333; }
 
 #subheader {
   margin-bottom: 50px; }
+
+.old-price {
+  color: #999; }
 
 .appitem, .listitem, .dailydeal, .specialdeals {
   box-shadow: 0 3px 6px #333; }
   .appitem .item-image, .appitem .listitem, .appitem .dailydeal, .appitem .specialdeals, .appitem .item-text-wrap, .appitem .listitem, .appitem .dailydeal, .appitem .specialdeals, .appitem .item-divider, .appitem .listitem, .appitem .dailydeal, .appitem .specialdeals {
     border: 0; }
   .appitem .item.item-text-wrap, .appitem .listitem, .appitem .dailydeal, .appitem .specialdeals {
-    min-height: 40px;
+    min-height: 20px;
     padding: 0; }
     .appitem .item.item-text-wrap .row, .appitem .item.item-text-wrap .listitem, .appitem .item.item-text-wrap .dailydeal, .appitem .item.item-text-wrap .specialdeals {
       padding: 0; }
@@ -7050,20 +7057,19 @@ html {
       padding: 0; }
     .appitem .item.item-text-wrap .col.discount, .appitem .item.item-text-wrap .listitem, .appitem .item.item-text-wrap .dailydeal, .appitem .item.item-text-wrap .specialdeals {
       width: 100%;
-      text-size: 0.9em;
-      margin: 5% 0;
-      padding-left: 0px;
+      text-size: 1.2em;
+      padding: 0px;
       white-space: nowrap; }
     .appitem .item.item-text-wrap .col.col-67, .appitem .item.item-text-wrap .listitem, .appitem .item.item-text-wrap .dailydeal, .appitem .item.item-text-wrap .specialdeals {
       padding-right: 2px;
       font-size: 0.9em;
       text-align: right; }
       .appitem .item.item-text-wrap .col.col-67 strike, .appitem .item.item-text-wrap .col.col-67 .listitem, .appitem .item.item-text-wrap .col.col-67 .dailydeal, .appitem .item.item-text-wrap .col.col-67 .specialdeals {
-        color: #808080;
+        color: #333;
         font-size: 0.8em; }
 
 .listitem {
-  width: 47%;
+  max-width: 47%;
   margin: 3px 4px;
   left: 4px;
   right: 0; }
@@ -7071,8 +7077,16 @@ html {
     max-width: 100%;
     height: auto; }
 
+.dailydeal {
+  margin: 0 10px; }
+
 .specialdeals {
   position: relative; }
+  .specialdeals .item.item-text-wrap {
+    max-height: 30px; }
+
+.gallery-slider {
+  max-height: 50%; }
 
 #placeholder {
   height: 40px; }

@@ -37,7 +37,7 @@ angular.module('SteamPiggyBank.services', [])
               parent = $data.find('#search_result_container');
               tmpList = findSaleItems(parent);
               allItemsOnSale = allItemsOnSale.concat(parseDOMElementList(tmpList));
-              console.log(allItemsOnSale);
+              //console.log(allItemsOnSale);
               defer.notify(allItemsOnSale);
               tmpList = [];
             })
@@ -46,7 +46,6 @@ angular.module('SteamPiggyBank.services', [])
         }
       });
 
-    console.log(currentPage);
     // defer.resolve(allItemsOnSale);
     return defer.promise;
   };
@@ -223,7 +222,7 @@ angular.module('SteamPiggyBank.services', [])
     var parent = page.find('.dailydeal_ctn'),
       dealitem = {};
 
-    console.log(parent, page);
+    //console.log(parent, page);
     // dealitem.name = getName(parent);
     dealitem.appid = getAppId(parent);
     dealitem.packageid = getPackageId(parent);
@@ -235,7 +234,6 @@ angular.module('SteamPiggyBank.services', [])
     return dealitem;
 
     function getAppId(parent) {
-      console.log(parent.find('.dailydeal_cap'));
       return parent.find('.dailydeal_cap').data('dsAppid').toString();
     }
 
