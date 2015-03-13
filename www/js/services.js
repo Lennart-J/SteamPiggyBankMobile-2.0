@@ -3,6 +3,18 @@ angular.module('SteamPiggyBank.services', [])
 
 .service('requestService', function($http, $q) {
 
+  var allAppsOnSale = [];
+
+  this.getCurrentApp = function(appId) {
+    for (var i = 0; i < allAppsOnSale.length; i++) {
+        if (allAppsOnSale[i].appid === appId) {
+          return allAppsOnSale[i];
+        }
+      }
+      return null;
+  };
+
+
   this.getAllApps = function() {
     var XHRs = [],
       response = '',
@@ -37,8 +49,8 @@ angular.module('SteamPiggyBank.services', [])
               parent = $data.find('#search_result_container');
               tmpList = findSaleItems(parent);
               allItemsOnSale = allItemsOnSale.concat(parseDOMElementList(tmpList));
-              //console.log(allItemsOnSale);
               defer.notify(allItemsOnSale);
+              allAppsOnSale = allItemsOnSale;
               tmpList = [];
             })
           );
@@ -47,6 +59,7 @@ angular.module('SteamPiggyBank.services', [])
       });
 
     // defer.resolve(allItemsOnSale);
+
     return defer.promise;
   };
 

@@ -7069,6 +7069,7 @@ a.button {
         font-size: 0.8em; }
 
 .listitem {
+  text-decoration: none;
   max-width: 47%;
   margin: 3px 4px;
   left: 4px;

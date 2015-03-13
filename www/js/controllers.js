@@ -6,6 +6,9 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate'])
   var mainSlider = angular.element(document.querySelector('.slider-slides')),
     swipeGesture = null;
 
+  $scope.featuredDeals = {};
+  $scope.appItems = {};
+
   var promiseDailyDeal = requestService.getFrontPageDeals();
   promiseDailyDeal.then(function(data) {
     $scope.dailyDeal = data;
@@ -114,10 +117,13 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate'])
   $scope.scrolling = function() {
     $ionicSlideBoxDelegate.$getByHandle('main-slider').enableSlide(false);
   };
+  $scope.showAppDetails = function(){
+    $state.go('appDetails');
+  };
 
 })
 
-.controller('GalleryCtrl', function($scope, $ionicSlideBoxDelegate) {
+.controller('GalleryCtrl', function($scope, $ionicSlideBoxDelegate, $state) {
   $scope.showNext = function() {
     $ionicSlideBoxDelegate.next();
   };
@@ -141,6 +147,33 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate'])
   };
 
   $scope.getDealName = function() {
+    return "Featured Deals";
+  };
+
+  $scope.showAppDetails = function(){
+    $state.go('appDetails');
+  };
+})
+
+.controller('appDetailsCtrl', function($scope, $ionicSlideBoxDelegate, $state, $stateParams, requestService) {
+  
+  $scope.appItem = requestService.getCurrentApp($stateParams.appId);
+
+  //setTimeout(function(){console.log($scope.appItem);}, 1000);
+
+  $scope.showNext = function() {
+    $ionicSlideBoxDelegate.next();
+  };
+  $scope.showPrev = function() {
+    $ionicSlideBoxDelegate.previous();
+  };
+  $scope.slide = function(index) {
+    $ionicSlideBoxDelegate.slide(index);
+  };
+  $scope.slideChanged = function(index) {
+    $scope.slideIndex = index;
+  };
+  $scope.getAppDetails = function() {
     return "Featured Deals";
   };
 });

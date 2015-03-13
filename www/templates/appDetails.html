@@ -1,0 +1,28 @@
+<ion-view title="App Details" class="view" ng-cloak>
+  <ion-nav-bar class="bar-dark" animation="nav-title-slide-ios7" align-title="center">
+     <ion-nav-back-button></button>
+  </ion-nav-bar>
+
+      <ion-slide-box on-slide-changed="slideChanged(index)" class="main-slider" show-pager="true">
+        <ion-slide on-touch="onTouch()" on-release="onRelease()" class="has-header">
+          <div id="subheader"></div>
+          <ion-content has-bouncing="false">
+          <div class="card dailydeal">
+            <div class="item item-divider">
+              App Details
+            </div>
+
+             <div class="item item-image">
+             <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{appItem.appid}}/header.jpg">
+            </div>
+            <div>{{appItem.name}}</div>
+
+          </div>
+        </ion-content>
+      </ion-slide>
+
+
+    </ion-slide-box>
+  
+
+</ion-view>

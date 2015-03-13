@@ -82,6 +82,7 @@
 
 .listitem {
   @extend .appitem;
+  text-decoration: none;
   max-width: 47%;
   //max-height: 150px;
   margin: 3px 4px;
