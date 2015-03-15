@@ -12,7 +12,7 @@
           <div id="subheader"></div>
           <ion-content has-bouncing="false">
           <div class="card dailydeal">
-            <div class="item item-divider">
+            <div class="item item-divider less-padding">
               Daily Deal
             </div>
 
@@ -22,15 +22,16 @@
 
             <div class="item item-text-wrap no-padding">
               <div class="row">
-              <div class="col discount">{{dailyDeal.discount}}</div>
+                <div class="col platforms no-padding"><span><i class="icon ion-social-windows"></i></span></div>
+                <div class="col discount no-padding">{{dailyDeal.discount}}</div>
               
-              <div class="col col-50 old-price"><strike>{{dailyDeal.originalprice}}</strike><br>{{dailyDeal.finalprice}}</div>
-            </div>
+                <div class="col price no-padding"><strike>{{dailyDeal.originalprice}}</strike>{{dailyDeal.finalprice}}</div>
+              </div>
             </div>
           </div>
 
           <div class="card specialdeals" ng-controller='GalleryCtrl'>
-            <div class="item item-divider">
+            <div class="item item-divider less-padding">
               {{getDealName()}}
             </div>
 
@@ -39,8 +40,24 @@
                 <div class="item item-image" ng-click="showAppDetails()">
                   <img ng-src="{{app.imageUrl}}"  alt='Thumbnail' holder>
                 </div>
-                <div class="item item-text-wrap less-padding">
-                  {{app.name}}
+                <div class="item item-text-wrap no-padding">
+                  <div class="item item-text-wrap no-padding">
+                    <div class="row">
+                      <div class="col platforms no-padding">
+                        <span ng-if="app.platforms.windows"><i class="icon ion-social-windows"></i></span>
+                        <span ng-if="app.platforms.mac"><i class="icon ion-social-apple"></i></span>
+                        <span ng-if="app.platforms.linux"><i class="icon ion-social-tux"></i></span>
+                      </div>
+                      <div class="col discount no-padding">{{app.discount}}</div>
+                    
+                      <div class="col price no-padding">
+                        <strike>{{app.originalprice}}</strike>
+                        {{app.finalprice}}
+                         <span><i class="icon ion-more vertical" ng-click="toggleMore(app, $event)"></i></span>
+                      </div>
+                     
+                    </div>
+                  </div>
                 </div>
               </ion-slide>
 
@@ -52,25 +69,32 @@
       <ion-slide class="has-header" on-swipe-left="sliding()" on-swipe-right="sliding()" on-swipe-up="scrolling()" on-swipe-down="scrolling()">
         <div id="subheader"></div>
         <ion-content has-bouncing="false" overflow-scroll="false">
-          <a class="card listitem" href="#/appDetails/{{app.appid}}"
+        <ion-refresher
+            pulling-text="Pull to refresh..."
+            on-refresh="doRefresh()">
+          </ion-refresher>
+          <div class="card listitem" href="#/appDetails/{{app.appid}}"
             collection-repeat="app in appItems"
-            collection-item-width="'50%'"
-            collection-item-height="'160px'"
+            collection-item-width="'49%'"
+            collection-item-height="'145px'"
             >
-            <div class="item item-divider">
-              <!-- <i class="icon ion-loading-c" style="font-size: 28px"></i> -->
-              {{app.name}}
-            </div>
-            <ion-item class="item item-image" >
-              <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{app.appid}}/capsule_184x69.jpg" holder>
-            </ion-item>
+            <a class="details" href="#/appDetails/{{app.appid}}">
+              <div class="item item-divider">
+                <!-- <i class="icon ion-loading-c" style="font-size: 28px"></i> -->
+                {{app.name}}
+              </div>
+              <ion-item class="item item-image" >
+                <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{app.appid}}/capsule_184x69.jpg" holder>
+              </ion-item>
+            </a>
             <div class="item item-text-wrap no-padding">
               <div class="row no-padding">
-                <div class="col discount">{{app.discount}}</div>
-                <div class="col col-50"><strike>{{app.originalprice}}</strike><br>{{app.finalprice}}</div>
+                <span class="col col discount">{{app.discount}}</span>
+                <span class="col col-75 price"><strike>{{app.originalprice}}</strike>{{app.finalprice}}</span>
+                <span class="col" ><i class="icon ion-more vertical" ng-click="toggleMore(app, $event)"></i></span>
               </div>
             </div>
-          </a>
+          </div>
         </ion-content>
       </ion-slide>
 

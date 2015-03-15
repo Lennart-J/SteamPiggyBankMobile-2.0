@@ -26,6 +26,14 @@
   top:28px;
 }
 
+.platforms {
+  span i {
+    font-size: 20px;
+    margin-left: 5px;
+  }
+  text-align: left;
+}
+
 .bar-dark {
   border-color:#222 !important;
   box-shadow:0 3px 3px #333;
@@ -35,54 +43,35 @@
   margin-bottom: 50px;
  } 
 
- .card {
-    //border: 1px grey solid;
- }
-
  .old-price {
-  color:#999;
+    text-align: right;
  }
 
  .appitem {
     box-shadow:0 3px 6px #333;
-    .item-image, .item-text-wrap, .item-divider {
-       border:0;
-    }
-    .item.item-text-wrap {
-      min-height:20px;
-      padding: 0;
-      .row {
-        padding: 0;
-      }
-      .col {
-        padding:0;
-      }
-      .col.discount {
-        width:100%;
-        text-size:1.2em;
-        //margin: 5% 0;
-        padding:0px;
-        //text-align: right;
-        white-space: nowrap;
-      }
-      .col.col-67 {
-        padding-right:2px;
-        font-size: 0.9em;
-        text-align: right;
-
-        strike {
-          color: #333;
-          font-size: 0.8em;
-        }
-      }
-      
-    }
-    
  }
+
+ .discount {
+  width:100%;
+  font-size:1.1em;
+  //margin: 5% 0;
+  //text-align: right;
+  white-space: nowrap;
+}
+
+strike {
+  color: #BBB;
+  font-size: 0.8em;
+  margin-right: 2px;
+}
+
+.details {
+  text-decoration: none;
+}
 
 .listitem {
   @extend .appitem;
-  text-decoration: none;
+  
   max-width: 47%;
   //max-height: 150px;
   margin: 3px 4px;
@@ -92,21 +81,55 @@
       max-width:100%;
       height: auto;
     }
-  
+  .price {
+    text-align: right;
+  }
+}
+
+.ion-more.vertical {
+  &:before{
+    -webkit-transform: rotate(-90deg);
+  }
+  transition-property:color, text;
+  transition-duration: 0.3s, 0.05s;
+  transition-timing-function: linear, ease-in;
+  font-size: 20px;
+  color: #AAA;
+  &:active {
+    color: #DDD;
+  }
+}
+
+.more-popover {
+  width: 200px;
+  max-height: 100px;
 }
 
 .dailydeal {
   @extend .appitem;
-  margin: 0 10px;
+  margin: 0 5px;
   img {
-    }
+    max-height: 33%;
+  }
+  .discount {
+    text-align: right;
+  }
+
 }
 
 .specialdeals {
+  img {
+    max-height: 250px;
+  }
   @extend .appitem;
+  margin: 12px 5px;
   .item.item-text-wrap {
       max-height:30px;
-    }
+  }
+  .discount {
+    text-align: right;
+  }
+  
   position:relative;
 }
 

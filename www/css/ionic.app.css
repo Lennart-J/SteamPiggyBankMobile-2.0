@@ -7034,6 +7034,12 @@ a.button {
 .has-header {
   top: 28px; }
 
+.platforms {
+  text-align: left; }
+  .platforms span i {
+    font-size: 20px;
+    margin-left: 5px; }
+
 .bar-dark {
   border-color: #222 !important;
   box-shadow: 0 3px 3px #333; }
@@ -7042,34 +7048,25 @@ a.button {
   margin-bottom: 50px; }
 
 .old-price {
-  color: #999; }
+  text-align: right; }
 
 .appitem, .listitem, .dailydeal, .specialdeals {
   box-shadow: 0 3px 6px #333; }
-  .appitem .item-image, .appitem .listitem, .appitem .dailydeal, .appitem .specialdeals, .appitem .item-text-wrap, .appitem .listitem, .appitem .dailydeal, .appitem .specialdeals, .appitem .item-divider, .appitem .listitem, .appitem .dailydeal, .appitem .specialdeals {
-    border: 0; }
-  .appitem .item.item-text-wrap, .appitem .listitem, .appitem .dailydeal, .appitem .specialdeals {
-    min-height: 20px;
-    padding: 0; }
-    .appitem .item.item-text-wrap .row, .appitem .item.item-text-wrap .listitem, .appitem .item.item-text-wrap .dailydeal, .appitem .item.item-text-wrap .specialdeals {
-      padding: 0; }
-    .appitem .item.item-text-wrap .col, .appitem .item.item-text-wrap .listitem, .appitem .item.item-text-wrap .dailydeal, .appitem .item.item-text-wrap .specialdeals {
-      padding: 0; }
-    .appitem .item.item-text-wrap .col.discount, .appitem .item.item-text-wrap .listitem, .appitem .item.item-text-wrap .dailydeal, .appitem .item.item-text-wrap .specialdeals {
-      width: 100%;
-      text-size: 1.2em;
-      padding: 0px;
-      white-space: nowrap; }
-    .appitem .item.item-text-wrap .col.col-67, .appitem .item.item-text-wrap .listitem, .appitem .item.item-text-wrap .dailydeal, .appitem .item.item-text-wrap .specialdeals {
-      padding-right: 2px;
-      font-size: 0.9em;
-      text-align: right; }
-      .appitem .item.item-text-wrap .col.col-67 strike, .appitem .item.item-text-wrap .col.col-67 .listitem, .appitem .item.item-text-wrap .col.col-67 .dailydeal, .appitem .item.item-text-wrap .col.col-67 .specialdeals {
-        color: #333;
-        font-size: 0.8em; }
+
+.discount {
+  width: 100%;
+  font-size: 1.1em;
+  white-space: nowrap; }
+
+strike {
+  color: #BBB;
+  font-size: 0.8em;
+  margin-right: 2px; }
+
+.details {
+  text-decoration: none; }
 
 .listitem {
-  text-decoration: none;
   max-width: 47%;
   margin: 3px 4px;
   left: 4px;
@@ -7077,14 +7074,40 @@ a.button {
   .listitem img {
     max-width: 100%;
     height: auto; }
+  .listitem .price {
+    text-align: right; }
+
+.ion-more.vertical {
+  transition-property: color, text;
+  transition-duration: 0.3s, 0.05s;
+  transition-timing-function: linear, ease-in;
+  font-size: 20px;
+  color: #AAA; }
+  .ion-more.vertical:before {
+    -webkit-transform: rotate(-90deg); }
+  .ion-more.vertical:active {
+    color: #DDD; }
+
+.more-popover {
+  width: 200px;
+  max-height: 100px; }
 
 .dailydeal {
-  margin: 0 10px; }
+  margin: 0 5px; }
+  .dailydeal img {
+    max-height: 33%; }
+  .dailydeal .discount {
+    text-align: right; }
 
 .specialdeals {
+  margin: 12px 5px;
   position: relative; }
+  .specialdeals img {
+    max-height: 250px; }
   .specialdeals .item.item-text-wrap {
     max-height: 30px; }
+  .specialdeals .discount {
+    text-align: right; }
 
 .gallery-slider {
   max-height: 50%; }

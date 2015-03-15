@@ -1,13 +1,13 @@
 'use strict';
-angular.module('SteamPiggyBank.controllers', ['ngAnimate'])
+angular.module('SteamPiggyBank.controllers', ['ngAnimate', 'ngCordova'])
 
-.controller('IntroCtrl', function($scope, requestService, $state, $http, $q, $ionicScrollDelegate, $ionicSideMenuDelegate, $ionicBackdrop, $ionicSlideBoxDelegate, $ionicGesture, $ionicNavBarDelegate, $ionicLoading) {
+.controller('IntroCtrl', function($scope, requestService, $state, $http, $q, $ionicPopover, $ionicScrollDelegate, $ionicSideMenuDelegate, $ionicBackdrop, $ionicSlideBoxDelegate, $ionicGesture, $ionicNavBarDelegate, $ionicLoading, $cordovaSocialSharing) {
 
   var mainSlider = angular.element(document.querySelector('.slider-slides')),
     swipeGesture = null;
 
-  $scope.featuredDeals = {};
-  $scope.appItems = {};
+  $scope.featuredDeals = [];
+  $scope.appItems = [];
 
   var promiseDailyDeal = requestService.getFrontPageDeals();
   promiseDailyDeal.then(function(data) {
@@ -23,7 +23,6 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate'])
     console.log("FeaturedDeals: ", data);
     updateLoadingIndicator();
   });
-
   var promiseAllApps = requestService.getAllApps();
   promiseAllApps.then(function(data) {
     //console.log(data);
@@ -50,10 +49,27 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate'])
       $scope.loadingIndicator = $ionicLoading.show({
         template: '<i class="icon ion-loading-c" style="font-size: 32px"></i>',
         animation: 'fade-in',
-        noBackdrop: false
+        noBackdrop: false,
+        duration: 1000
       });
     }
   };
+
+  $scope.doRefresh = function() {
+    var promiseAllApps = requestService.getAllApps();
+    promiseAllApps.then(function(data) {
+      //console.log(data);
+    }, function(reason) {
+      //console.log(reason);
+    }, function(update) {
+      //console.log(update);
+      $scope.appItems = update;
+      updateLoadingIndicator();
+    }).finally(function() {
+      $scope.$broadcast('scroll.refreshComplete');
+    });
+  };
+
 
   // Called to navigate to the main app
   $scope.next = function() {
@@ -117,11 +133,53 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate'])
   $scope.scrolling = function() {
     $ionicSlideBoxDelegate.$getByHandle('main-slider').enableSlide(false);
   };
-  $scope.showAppDetails = function(){
+  $scope.showAppDetails = function() {
     $state.go('appDetails');
   };
 
+  //___________________________//
+  //----------Popover----------//
+
+  $scope.toggleMore = function(item, event) {
+    if (event) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
+
+    if ($scope.popover) {
+      $scope.popover.remove();
+    }
+    $ionicPopover.fromTemplateUrl('templates/contextPopover.html', {
+      scope: $scope
+    }).then(function(popover) {
+      $scope.popover = popover;
+      $scope.$on('$destroy', function() {
+        $scope.popover.remove().then(
+          function() {
+            delete $scope.popover;
+          });
+      });
+      $scope.popover.show(event);
+    });
+  }
+
+  $scope.share = function(app) {
+    $scope.popover.remove();
+    $cordovaSocialSharing
+      .share(app.name + " is currently " + app.discount.replace(/\-/g, '') + " off! Instead of " + app.originalprice + " you can get it for " + app.finalprice + "!", "Hi Friend! Check out this sale on Steam", null, "http://store.steampowered.com/app/" + app.appid) // Share via native share sheet
+      .then(function(result) {
+        console.log(result);
+        // Success!
+      }, function(err) {
+        console.log(err);
+        // An error occured. Show a message to the user
+      });
+    //console.log(app);
+  };
+
 })
+
+
 
 .controller('GalleryCtrl', function($scope, $ionicSlideBoxDelegate, $state) {
   $scope.showNext = function() {
@@ -150,16 +208,14 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate'])
     return "Featured Deals";
   };
 
-  $scope.showAppDetails = function(){
+  $scope.showAppDetails = function() {
     $state.go('appDetails');
   };
 })
 
 .controller('appDetailsCtrl', function($scope, $ionicSlideBoxDelegate, $state, $stateParams, requestService) {
-  
-  $scope.appItem = requestService.getCurrentApp($stateParams.appId);
 
-  //setTimeout(function(){console.log($scope.appItem);}, 1000);
+  $scope.appItem = requestService.getCurrentApp($stateParams.appId);
 
   $scope.showNext = function() {
     $ionicSlideBoxDelegate.next();

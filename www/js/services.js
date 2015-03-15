@@ -1,7 +1,48 @@
 'use strict';
 angular.module('SteamPiggyBank.services', [])
 
-.service('requestService', function($http, $q) {
+.service('util', function() {
+  var currencyLocaleMap = {
+    "GBP": "en-GB",
+    "USD": "en-US",
+    "EUR": "de-DE",
+    "RUB": "ru-AD",
+    "BRL": "br-DF",
+    "JPY": "ja-JP",
+    "IDR": "en",
+    "MYR": "en",
+    "PHP": "ph",
+    "SGD": "en",
+    "THB": "th",
+    "AUD": "en-AU",
+    "NZD": "en-NZ",
+    "CAD": "en-CA",
+    "NOK": "no",
+    "KRW": "en",
+    "TRY": "en",
+    "MXN": "en"
+  };
+
+  this.formatPrice = function(val, currency) {
+    var locale = currencyLocaleMap[currency];
+
+    if (locale !== "") {
+      return Number(val.toFixed(2) / 100).toLocaleString(locale, {
+        style: "currency",
+        currency: currency,
+        minimumFractionDigits: 2
+      }).replace(/\s/g,'');
+    } else {
+      return Number(val.toFixed(2) / 100).toLocaleString({
+        style: "currency",
+        currency: currency,
+        minimumFractionDigits: 2
+      }).replace(/\s/g,'');
+    }
+  }
+})
+
+.service('requestService', function($http, $q, util) {
 
   var allAppsOnSale = [];
 
@@ -288,10 +329,16 @@ angular.module('SteamPiggyBank.services', [])
             deal.appid = null;
           }
           deal.name = el.name;
-          deal.originalprice = el.original_price;
-          deal.finalprice = el.final_price;
-          deal.discount = el.discount_percent;
+          deal.originalprice = util.formatPrice(el.original_price, el.currency);
+          deal.finalprice = util.formatPrice(el.final_price, el.currency);
+          deal.discount = "-" + el.discount_percent + "%";
           deal.imageUrl = el.large_capsule_image;
+          deal.currency = el.currency;
+          deal.platforms = {
+            windows: el.windows_available,
+            mac: el.mac_available,
+            linux: el.linux_available,
+          }
 
 
           featuredDeals.push(deal);
