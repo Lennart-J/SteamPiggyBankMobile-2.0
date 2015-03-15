@@ -7047,15 +7047,16 @@ a.button {
 #subheader {
   margin-bottom: 50px; }
 
-.old-price {
-  text-align: right; }
+.price {
+  text-align: right;
+  font-size: 0.9em; }
 
 .appitem, .listitem, .dailydeal, .specialdeals {
   box-shadow: 0 3px 6px #333; }
 
 .discount {
   width: 100%;
-  font-size: 1.1em;
+  font-size: 1.05em;
   white-space: nowrap; }
 
 strike {
@@ -7075,7 +7076,8 @@ strike {
     max-width: 100%;
     height: auto; }
   .listitem .price {
-    text-align: right; }
+    text-align: right;
+    padding-right: 0.5px; }
 
 .ion-more.vertical {
   transition-property: color, text;
@@ -7087,6 +7089,11 @@ strike {
     -webkit-transform: rotate(-90deg); }
   .ion-more.vertical:active {
     color: #DDD; }
+
+.icon-more {
+  padding-left: 0.5px;
+  padding-right: 0;
+  text-align: right; }
 
 .more-popover {
   width: 200px;
@@ -7104,10 +7111,12 @@ strike {
   position: relative; }
   .specialdeals img {
     max-height: 250px; }
-  .specialdeals .item.item-text-wrap {
+  .specialdeals .row, .specialdeals .item.item-text-wrap {
     max-height: 30px; }
   .specialdeals .discount {
     text-align: right; }
+  .specialdeals .price {
+    font-size: 1em; }
 
 .gallery-slider {
   max-height: 50%; }
@@ -7117,14 +7126,3 @@ strike {
 
 #logo {
   margin: 30px 0px; }
-
-#list {
-  width: 170px;
-  margin: 30px auto;
-  font-size: 20px; }
-  #list ol {
-    margin-top: 30px; }
-    #list ol li {
-      text-align: left;
-      list-style: decimal;
-      margin: 10px 0px; }
