@@ -34,16 +34,17 @@ angular.module('SteamPiggyBank', ['ionic', 'SteamPiggyBank.controllers', 'SteamP
     templateUrl: 'templates/intro.html',
     controller: 'IntroCtrl'
   })
-  .state('main', {
-    url: '/main',
-    templateUrl: 'templates/main.html',
-    controller: 'MainCtrl'
-  })
   .state('appDetails', {
     url: '/appDetails/:appId',
     templateUrl: 'templates/appDetails.html',
     controller: 'appDetailsCtrl'
+  })
+  .state('search', {
+    url: '/search',
+    templateUrl: 'templates/search.html',
+    controller: 'searchCtrl'
   });
+
 
   $urlRouterProvider.otherwise('/');
 

@@ -1,3 +1,5 @@
+$background-color: #00466e;
+
 .no-padding {
   padding: 0 !important;
 }
@@ -7,8 +9,8 @@
 }
 
 .main-slider {
-  background-color: #00466e;
-
+  background-color: $background-color;
+  height: 100%;
   &.slider {
     height: 100%;
 
@@ -22,8 +24,42 @@
   }
 }
 
+.search {
+  height: 80%;
+  margin-top: 1px;
+  margin-left: 5px;
+  background: none;
+  font-size: 1.2em;
+  
+  input, .placeholder-icon {
+    color: white; 
+  }
+  input {
+    font-size: 1em;
+    height: 20px;
+    background: none;
+    margin-top: 4px;
+    max-width: 80%;
+    min-width: 215px;
+    margin-left: 2px;
+    border-bottom: 1px solid #AAA;
+  }
+  .placeholder-icon {
+    //margin-top: 5px; 
+  }
+}
+
 .has-header {
-  top:28px;
+  top:23px;
+  bottom:23px;
+}
+
+.left-menu {
+  top:46px;
+
+  .icon {
+    font-size : 24px;
+  }
 }
 
 .platforms {
@@ -50,6 +86,8 @@
 
 .appitem {
   box-shadow:0 3px 6px #333;
+  border-bottom: 1.5px solid rgba(0, 0, 0, .75);
+  border-right: 1px solid rgba(0, 0, 0, .75);
 }
 
 .discount {
@@ -74,8 +112,8 @@ strike {
   @extend .appitem;
   
   max-width: 47%;
-  //max-height: 150px;
-  margin: 3px 4px;
+  max-height: 135px;
+  margin: 3px 8px;
   left:4px;
   right:0;
   img {
@@ -109,15 +147,18 @@ strike {
 }
 
 .more-popover {
-  width: 200px;
+  width: 175px;
   max-height: 100px;
+  .item {
+    padding: 10px;
+  }
 }
 
 .dailydeal {
   @extend .appitem;
   margin: 0 5px;
   img {
-    max-height: 33%;
+    max-height: 170px;
   }
   .discount {
     text-align: right;
@@ -127,7 +168,8 @@ strike {
 
 .specialdeals {
   img {
-    max-height: 250px;
+   /*  min-height: 210px;
+    max-height: 210px; */
   }
   @extend .appitem;
   margin: 12px 5px;

@@ -1,7 +1,7 @@
 'use strict';
 angular.module('SteamPiggyBank.controllers', ['ngAnimate', 'ngCordova'])
 
-.controller('IntroCtrl', function($scope, requestService, $state, $http, $q, $ionicPopover, $ionicScrollDelegate, $ionicSideMenuDelegate, $ionicBackdrop, $ionicSlideBoxDelegate, $ionicGesture, $ionicNavBarDelegate, $ionicLoading, $cordovaSocialSharing) {
+.controller('IntroCtrl', function($scope, $rootScope, requestService, $state, $http, $q, $ionicPopover, $ionicScrollDelegate, $ionicSideMenuDelegate, $ionicBackdrop, $ionicSlideBoxDelegate, $ionicGesture, $ionicNavBarDelegate, $ionicLoading, $cordovaSocialSharing) {
 
   var mainSlider = angular.element(document.querySelector('.slider-slides')),
     swipeGesture = null;
@@ -31,6 +31,7 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate', 'ngCordova'])
   }, function(update) {
     //console.log(update);
     $scope.appItems = update;
+    $rootScope.appItems = update;
     updateLoadingIndicator();
   });
 
@@ -47,10 +48,8 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate', 'ngCordova'])
       $scope.loadingIndicator.hide();
     } else {
       $scope.loadingIndicator = $ionicLoading.show({
-        template: '<i class="icon ion-loading-c" style="font-size: 32px"></i>',
         animation: 'fade-in',
-        noBackdrop: false,
-        duration: 1000
+        noBackdrop: false
       });
     }
   };
@@ -64,6 +63,7 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate', 'ngCordova'])
     }, function(update) {
       //console.log(update);
       $scope.appItems = update;
+      $rootScope.appItems = update;
       updateLoadingIndicator();
     }).finally(function() {
       $scope.$broadcast('scroll.refreshComplete');
@@ -87,10 +87,8 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate', 'ngCordova'])
     $scope.slideIndex = index;
     if (index === 0) {
       setNavTitle('Special Deals');
-
     } else if (index === 1) {
       setNavTitle('All Current Deals');
-
     }
   };
 
@@ -100,8 +98,20 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate', 'ngCordova'])
 
   $scope.toggleLeft = function() {
     $ionicSideMenuDelegate.toggleLeft();
-
   };
+
+  $scope.showSearch = function() {
+    $state.go("search");
+  };
+
+  $scope.toggleSearchInput = function() {
+    /*var toHide = $('.visible'),
+      toShow = $('.invisible');
+
+    toHide.removeClass('visible').addClass('invisible');
+    toShow.removeClass('invisible').addClass('visible');*/
+  };
+
 
   $scope.$watch($ionicSideMenuDelegate.isOpenLeft, function(bool) {
     console.log("watch isOpenLeft: ", bool);
@@ -145,7 +155,7 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate', 'ngCordova'])
       event.stopPropagation();
       event.preventDefault();
     }
-
+    $scope.app = item;
     if ($scope.popover) {
       $scope.popover.remove();
     }
@@ -164,9 +174,11 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate', 'ngCordova'])
   }
 
   $scope.share = function(app) {
+    var item = app || $scope.app;
+    console.log(app, item, $scope.app);
     $scope.popover.remove();
     $cordovaSocialSharing
-      .share(app.name + " is currently " + app.discount.replace(/\-/g, '') + " off! Instead of " + app.originalprice + " you can get it for " + app.finalprice + "!", "Hi Friend! Check out this sale on Steam", null, "http://store.steampowered.com/app/" + app.appid) // Share via native share sheet
+      .share(item.name + " is currently " + item.discount.replace(/\-/g, '') + " off! Instead of " + item.originalprice + " you can get it for " + item.finalprice + "!", "Hi Friend! Check out this sale on Steam", null, "http://store.steampowered.com/app/" + item.appid) // Share via native share sheet
       .then(function(result) {
         console.log(result);
         // Success!
@@ -177,11 +189,17 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate', 'ngCordova'])
     //console.log(app);
   };
 
+  $scope.goToAppDetails = function(app) {
+    var app = app || $scope.app;
+    $scope.popover.remove();
+    $state.go('appDetails', {appId : app.appid});
+  };
+
 })
 
 
 
-.controller('GalleryCtrl', function($scope, $ionicSlideBoxDelegate, $state) {
+.controller('GalleryCtrl', function($scope, $ionicSlideBoxDelegate, $state, $ionicScrollDelegate) {
   $scope.showNext = function() {
     $ionicSlideBoxDelegate.next();
   };
@@ -231,5 +249,29 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate', 'ngCordova'])
   };
   $scope.getAppDetails = function() {
     return "Featured Deals";
+  };
+})
+
+.controller('searchCtrl', function($scope, $rootScope, $filter, $timeout, requestService) {
+  Object.defineProperty($scope, "queryFilter", {
+      get: function() {
+          var out = {};
+          out[$scope.queryBy || "$"] = $scope.query;
+          return out;
+      }
+  });
+  $scope.query = {};
+  $scope.queryBy = '$';
+  $scope.orderProp = "name";
+  var orderBy = $filter('orderBy');
+
+  $timeout(function() {
+    $('#search').focus();
+  }, 500);
+
+  $scope.clearSearch = function() {
+    $timeout(function() {
+      $('#search').val('');
+    });
   };
 });

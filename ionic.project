@@ -1,6 +1,6 @@
 {
-  "name": "spb",
-  "app_id": "5c41c76e",
+  "name": "tabs",
+  "app_id": "e41832b4",
   "gulpStartupTasks": [
     "sass",
     "watch"
@@ -13,7 +13,7 @@
     {
       "platform": "android",
       "browser": "crosswalk",
-      "version": "11.40.277.1"
+      "version": "11.40.277.7"
     }
   ]
 }
