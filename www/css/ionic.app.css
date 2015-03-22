@@ -7602,6 +7602,9 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
+body {
+  cursor: url('http://ionicframework.com/img/finger.png'), auto; }
+
 .no-padding {
   padding: 0 !important; }
 
@@ -7645,6 +7648,12 @@ a.button {
   top: 46px; }
   .left-menu .icon {
     font-size: 24px; }
+  .left-menu .inset {
+    padding-left: 35px; }
+  .left-menu .toggle {
+    position: absolute;
+    top: 8px;
+    right: 16px; }
 
 .platforms {
   text-align: left; }
@@ -7717,15 +7726,20 @@ strike {
     padding: 10px; }
 
 .dailydeal {
-  margin: 0 5px; }
+  margin: 0 5px;
+  min-height: 230px; }
   .dailydeal img {
     max-height: 170px; }
   .dailydeal .discount {
     text-align: right; }
 
 .specialdeals {
+  min-height: 250px;
   margin: 12px 5px;
   position: relative; }
+  .specialdeals img {
+    min-height: 210px;
+    max-height: 210px; }
   .specialdeals .row, .specialdeals .item.item-text-wrap {
     max-height: 30px; }
   .specialdeals .discount {

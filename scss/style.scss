@@ -1,5 +1,9 @@
 $background-color: #00466e;
 
+body {
+  cursor: url('http://ionicframework.com/img/finger.png'), auto;
+} 
+
 .no-padding {
   padding: 0 !important;
 }
@@ -59,6 +63,14 @@ $background-color: #00466e;
 
   .icon {
     font-size : 24px;
+  }
+  .inset {
+    padding-left: 35px;
+  }
+  .toggle {
+    position: absolute;
+    top: 8px;
+    right: 16px;
   }
 }
 
@@ -157,6 +169,7 @@ strike {
 .dailydeal {
   @extend .appitem;
   margin: 0 5px;
+  min-height: 230px;
   img {
     max-height: 170px;
   }
@@ -167,9 +180,10 @@ strike {
 }
 
 .specialdeals {
+  min-height: 250px;
   img {
-   /*  min-height: 210px;
-    max-height: 210px; */
+    min-height: 210px;
+    max-height: 210px;
   }
   @extend .appitem;
   margin: 12px 5px;

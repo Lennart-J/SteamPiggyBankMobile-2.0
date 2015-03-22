@@ -39,7 +39,48 @@ angular.module('SteamPiggyBank.services', [])
         minimumFractionDigits: 2
       }).replace(/\s/g,'');
     }
-  }
+  };
+})
+
+.service('filterService', function() {
+  var filters = [
+    {
+      'name' : 'Price',
+      'values' : [{'name' : 'Maximum', 'display' : 'range', 'value' : '100'}, {'name' : 'Minimum', 'display' : 'range', 'value' : '0'}]
+    },
+    {
+      'name' : 'Discount',
+      'values' : [{'name' : 'Minimum', 'display' : 'range', 'value' : '0'}]
+    },
+    {
+      'name' : 'Type',
+      'values' : [{'name' : 'Game', 'display' : 'toggle'}, {'name' : 'DLC', 'display' : 'toggle'}, {'name' : 'Package', 'display' : 'toggle'}, {'name' : 'Software', 'display' : 'toggle'}]
+    },
+    {
+      'name' : 'Platforms',
+      'values' : [{'name' : 'Windows', 'display' : 'toggle'}, {'name' : 'Mac', 'display' : 'toggle'}, {'name' : 'Linux', 'display' : 'toggle'}]
+    }
+  ];
+
+  this.setFilterValue = function(filter, value, newValue) {
+    $.each(filters, function(key, el) {
+      if (el.name === filter.name) {
+        $.each(el.values, function(key, val) {
+          if (val.name === value.name) {
+            val.value = newValue;
+            return;
+          }
+        });
+        return;
+      }
+    });
+  };
+
+  this.getFilters = function() {
+    return filters;
+  };
+
+
 })
 
 .service('requestService', function($http, $q, util) {
