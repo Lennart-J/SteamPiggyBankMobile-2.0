@@ -18,9 +18,9 @@
               Daily Deal
             </div>
 
-             <ion-item class="item item-image" >
-             <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{dailyDeal.appid}}/header.jpg" >
-            </ion-item>
+            <a class="item item-image" href="#/appDetails/{{dailyDeal.appid}}">
+              <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{dailyDeal.appid}}/header.jpg" >
+            </a>
 
             <div class="item item-text-wrap no-padding">
               <div class="row">
@@ -39,9 +39,11 @@
 
             <ion-slide-box does-continue="true" auto-play="true" on-slide-changed="slideChanged(index)" show-pager="false" class="gallery-slider" delegate-handle="gallery-slider">
               <ion-slide ng-repeat='app in featuredDeals' on-touch="onTouch()" on-release="onRelease()">
-                <div class="item item-image" ng-click="showAppDetails()">
-                  <img ng-src="{{app.imageUrl}}"  alt='Thumbnail'>
-                </div>
+                <a class="details" href="#/appDetails/{{app.appid}}">  
+                  <div class="item item-image">
+                    <img ng-src="{{app.imageUrl}}"  alt='Thumbnail' holder>
+                  </div>
+                </a>
                 <div class="item item-text-wrap no-padding">
                   <div class="item item-text-wrap no-padding">
                     <div class="row">
