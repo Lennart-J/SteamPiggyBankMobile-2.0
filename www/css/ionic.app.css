@@ -7640,11 +7640,15 @@ body {
     margin-left: 2px;
     border-bottom: 1px solid #AAA; }
 
-@media (min-width: 680px) {
+.has-header-spb {
+  top: 0px;
+  bottom: 0px; }
+
+/* @media (min-width: 680px) {
   .platform-ios.platform-cordova .modal-wrapper .modal .bar-header:not(.bar-subheader) {
     height: 23px; }
-  .platform-ios.platform-cordova .modal-wrapper .modal .bar-header:not(.bar-subheader) > * {
-    margin-top: 0; }
+    .platform-ios.platform-cordova .modal-wrapper .modal .bar-header:not(.bar-subheader) > * {
+      margin-top: 0; }
   .platform-ios.platform-cordova .modal-wrapper .modal .tabs-top > .tabs, .platform-ios.platform-cordova .modal-wrapper .modal .tabs.tabs-top {
     top: 23px; }
   .platform-ios.platform-cordova .modal-wrapper .modal .has-header, .platform-ios.platform-cordova .modal-wrapper .modal .bar-subheader {
@@ -7665,31 +7669,22 @@ body {
 
 .platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) {
   height: 64px; }
-
-.platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader).item-input-inset .item-input-wrapper {
-  margin-top: 19px !important; }
-
-.platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) > * {
-  margin-top: 20px; }
-
+  .platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader).item-input-inset .item-input-wrapper {
+    margin-top: 19px !important; }
+  .platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) > * {
+    margin-top: 20px; }
 .platform-ios.platform-cordova:not(.fullscreen) .tabs-top > .tabs, .platform-ios.platform-cordova:not(.fullscreen) .tabs.tabs-top {
   top: 64px; }
-
 .platform-ios.platform-cordova:not(.fullscreen) .has-header, .platform-ios.platform-cordova:not(.fullscreen) .bar-subheader {
   top: 64px; }
-
 .platform-ios.platform-cordova:not(.fullscreen) .has-subheader {
   top: 108px; }
-
 .platform-ios.platform-cordova:not(.fullscreen) .has-tabs-top {
   top: 113px; }
-
 .platform-ios.platform-cordova:not(.fullscreen) .has-header.has-subheader.has-tabs-top {
   top: 157px; }
-
 .platform-ios.platform-cordova.status-bar-hide {
-  margin-bottom: 20px; }
-
+  margin-bottom: 20px; } */
 .left-menu {
   top: 46px; }
   .left-menu .icon {

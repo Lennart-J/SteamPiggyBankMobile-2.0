@@ -53,12 +53,12 @@ body {
   }
 }
 
-.has-header {
-  /* top:23px;
-  bottom:23px; */
+.has-header-spb {
+  top:0px;
+  bottom:0px;
 }
 
-@media (min-width: 680px) {
+/* @media (min-width: 680px) {
   .platform-ios.platform-cordova .modal-wrapper .modal .bar-header:not(.bar-subheader) {
     height: 23px; }
     .platform-ios.platform-cordova .modal-wrapper .modal .bar-header:not(.bar-subheader) > * {
@@ -98,7 +98,7 @@ body {
 .platform-ios.platform-cordova:not(.fullscreen) .has-header.has-subheader.has-tabs-top {
   top: 157px; }
 .platform-ios.platform-cordova.status-bar-hide {
-  margin-bottom: 20px; }
+  margin-bottom: 20px; } */
 
 .left-menu {
   top:46px;
