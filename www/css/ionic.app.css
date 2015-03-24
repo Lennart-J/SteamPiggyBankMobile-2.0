@@ -7602,6 +7602,9 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
+body {
+  cursor: url('http://ionicframework.com/img/finger.png'), auto; }
+
 .no-padding {
   padding: 0 !important; }
 
@@ -7637,14 +7640,61 @@ a.button {
     margin-left: 2px;
     border-bottom: 1px solid #AAA; }
 
-.has-header {
-  top: 23px;
-  bottom: 23px; }
+.has-header-spb {
+  top: 10px;
+  bottom: 0px; }
 
+/* @media (min-width: 680px) {
+  .platform-ios.platform-cordova .modal-wrapper .modal .bar-header:not(.bar-subheader) {
+    height: 23px; }
+    .platform-ios.platform-cordova .modal-wrapper .modal .bar-header:not(.bar-subheader) > * {
+      margin-top: 0; }
+  .platform-ios.platform-cordova .modal-wrapper .modal .tabs-top > .tabs, .platform-ios.platform-cordova .modal-wrapper .modal .tabs.tabs-top {
+    top: 23px; }
+  .platform-ios.platform-cordova .modal-wrapper .modal .has-header, .platform-ios.platform-cordova .modal-wrapper .modal .bar-subheader {
+    top: 23px; }
+  .platform-ios.platform-cordova .modal-wrapper .modal .has-subheader {
+    top: 46px; }
+  .platform-ios.platform-cordova .modal-wrapper .modal .has-tabs-top {
+    top: 51px; }
+  .platform-ios.platform-cordova .modal-wrapper .modal .has-header.has-subheader.has-tabs-top {
+    top: 64px; }
+  .modal-backdrop-bg {
+    -webkit-transition: opacity 300ms ease-in-out;
+    transition: opacity 300ms ease-in-out;
+    background-color: #000;
+    opacity: 0; }
+  .active .modal-backdrop-bg {
+    opacity: 0.5; } }
+
+.platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) {
+  height: 64px; }
+  .platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader).item-input-inset .item-input-wrapper {
+    margin-top: 19px !important; }
+  .platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) > * {
+    margin-top: 20px; }
+.platform-ios.platform-cordova:not(.fullscreen) .tabs-top > .tabs, .platform-ios.platform-cordova:not(.fullscreen) .tabs.tabs-top {
+  top: 64px; }
+.platform-ios.platform-cordova:not(.fullscreen) .has-header, .platform-ios.platform-cordova:not(.fullscreen) .bar-subheader {
+  top: 64px; }
+.platform-ios.platform-cordova:not(.fullscreen) .has-subheader {
+  top: 108px; }
+.platform-ios.platform-cordova:not(.fullscreen) .has-tabs-top {
+  top: 113px; }
+.platform-ios.platform-cordova:not(.fullscreen) .has-header.has-subheader.has-tabs-top {
+  top: 157px; }
+.platform-ios.platform-cordova.status-bar-hide {
+  margin-bottom: 20px; } */
 .left-menu {
-  top: 46px; }
+  top: 0px !important; }
   .left-menu .icon {
     font-size: 24px; }
+  .left-menu .inset {
+    padding-left: 35px; }
+  .left-menu .toggle {
+    position: absolute;
+    top: 8px;
+    right: 16px; }
 
 .platforms {
   text-align: left; }
@@ -7719,13 +7769,15 @@ strike {
 .dailydeal {
   margin: 0 5px; }
   .dailydeal img {
-    max-height: 170px; }
+    max-height: 144px; }
   .dailydeal .discount {
     text-align: right; }
 
 .specialdeals {
   margin: 12px 5px;
   position: relative; }
+  .specialdeals img {
+    max-height: 170px; }
   .specialdeals .row, .specialdeals .item.item-text-wrap {
     max-height: 30px; }
   .specialdeals .discount {

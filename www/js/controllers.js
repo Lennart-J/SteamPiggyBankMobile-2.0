@@ -100,10 +100,6 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate', 'ngCordova'])
     $ionicSideMenuDelegate.toggleLeft();
   };
 
-  $scope.showSearch = function() {
-    $state.go("search");
-  };
-
   $scope.toggleSearchInput = function() {
     /*var toHide = $('.visible'),
       toShow = $('.invisible');
@@ -195,6 +191,10 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate', 'ngCordova'])
     $state.go('appDetails', {appId : app.appid, packageId : app.packageid});
   };
 
+  $scope.showSearch = function() {
+    $state.go("search");
+  };
+
 })
 
 
@@ -236,6 +236,8 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate', 'ngCordova'])
     $state.go('appDetails');
   };
 })
+
+
 
 .controller('appDetailsCtrl', function($scope, $ionicSlideBoxDelegate, $state, $stateParams, requestService) {
   $scope.openHorizontalTabs = [];
@@ -295,7 +297,9 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate', 'ngCordova'])
 
 })
 
-.controller('searchCtrl', function($scope, $rootScope, $filter, $timeout, requestService) {
+
+
+.controller('SearchCtrl', function($scope, $rootScope, $filter, $timeout, requestService) {
   Object.defineProperty($scope, "queryFilter", {
       get: function() {
           var out = {};
@@ -316,5 +320,31 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate', 'ngCordova'])
     $timeout(function() {
       $('#search').val('');
     });
+  };
+})
+
+
+
+.controller('SideMenuCtrl', function($scope, filterService) {
+
+  $scope.filters = filterService.getFilters();
+  $scope.openFilters = [];
+  //$scope.rangeValue = "0";
+
+  $scope.isOpen = function(filterName) {
+    return $scope.openFilters.indexOf(filterName) > -1;
+  };
+
+  $scope.drag = function(filter, value, rangeValue) {
+    filterService.setFilterValue(filter, value, rangeValue);
+  }
+
+  $scope.toggleDropDown = function(filter) {
+    var index = $scope.openFilters.indexOf(filter.name);
+    if (index > -1) {
+      $scope.openFilters.splice(index, 1);
+    } else {
+      $scope.openFilters.push(filter.name);
+    }
   };
 });

@@ -42,7 +42,7 @@ angular.module('SteamPiggyBank', ['ionic', 'SteamPiggyBank.controllers', 'SteamP
   .state('search', {
     url: '/search',
     templateUrl: 'templates/search.html',
-    controller: 'searchCtrl'
+    controller: 'SearchCtrl'
   });
 
 
