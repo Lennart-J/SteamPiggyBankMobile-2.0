@@ -7641,7 +7641,7 @@ body {
     border-bottom: 1px solid #AAA; }
 
 .has-header-spb {
-  top: 0px;
+  top: 10px;
   bottom: 0px; }
 
 /* @media (min-width: 680px) {
@@ -7686,7 +7686,7 @@ body {
 .platform-ios.platform-cordova.status-bar-hide {
   margin-bottom: 20px; } */
 .left-menu {
-  top: 46px; }
+  top: 0px !important; }
   .left-menu .icon {
     font-size: 24px; }
   .left-menu .inset {
@@ -7767,20 +7767,17 @@ strike {
     padding: 10px; }
 
 .dailydeal {
-  margin: 0 5px;
-  min-height: 230px; }
+  margin: 0 5px; }
   .dailydeal img {
-    max-height: 170px; }
+    max-height: 144px; }
   .dailydeal .discount {
     text-align: right; }
 
 .specialdeals {
-  min-height: 250px;
   margin: 12px 5px;
   position: relative; }
   .specialdeals img {
-    min-height: 210px;
-    max-height: 210px; }
+    max-height: 170px; }
   .specialdeals .row, .specialdeals .item.item-text-wrap {
     max-height: 30px; }
   .specialdeals .discount {

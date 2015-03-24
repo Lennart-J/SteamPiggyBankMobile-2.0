@@ -54,8 +54,12 @@ body {
 }
 
 .has-header-spb {
-  top:0px;
+  top:10px;
   bottom:0px;
+}
+
+.left-menu-content {
+
 }
 
 /* @media (min-width: 680px) {
@@ -101,7 +105,7 @@ body {
   margin-bottom: 20px; } */
 
 .left-menu {
-  top:46px;
+  top:0px !important;
 
   .icon {
     font-size : 24px;
@@ -211,9 +215,9 @@ strike {
 .dailydeal {
   @extend .appitem;
   margin: 0 5px;
-  min-height: 230px;
+  //min-height: 230px;
   img {
-    max-height: 170px;
+    max-height: 144px;
   }
   .discount {
     text-align: right;
@@ -222,10 +226,9 @@ strike {
 }
 
 .specialdeals {
-  min-height: 250px;
+  //min-height: 230px;
   img {
-    min-height: 210px;
-    max-height: 210px;
+    max-height: 170px;
   }
   @extend .appitem;
   margin: 12px 5px;
