@@ -11,6 +11,11 @@
   <ion-side-menus>
     <ion-side-menu-content drag-content="false" subheader='false'>
       <ion-slide-box on-slide-changed="slideChanged(index)" class="main-slider" delegate-handle="main-slider" show-pager="true">
+
+        <!-- ********************** -->
+        <!--   First Tab Content    -->
+        <!-- ********************** -->
+
         <ion-slide on-touch="onTouch()" on-release="onRelease()" class="has-header-spb">
           <ion-content has-bouncing="false">
           <div class="card dailydeal" ng-show="dailyDeal">
@@ -19,7 +24,7 @@
             </div>
 
             <a class="item item-image" href="#/appDetails/{{dailyDeal.appid}}">
-              <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{dailyDeal.appid}}/header.jpg" >
+              <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{dailyDeal.appid}}/header.jpg" err-src="img/SPB_ImgnotFoundBig.png">
             </a>
 
             <div class="item item-text-wrap no-padding">
@@ -27,7 +32,7 @@
                 <div class="col platforms no-padding"><span><i class="icon ion-social-windows"></i></span></div>
                 <div class="col discount no-padding">{{dailyDeal.discount}}</div>
               
-                <div class="col price no-padding"><strike>{{dailyDeal.originalprice}}</strike>{{dailyDeal.finalprice}}</div>
+                <div class="col price no-padding"><strike>{{dailyDeal.originalprice}}</strike>{{dailyDeal.finalprice}}<span class="icon-more"><i class="icon ion-more vertical" ng-click="toggleMore(dailyDeal, $event)"></i></span></div>
               </div>
             </div>
           </div>
@@ -41,7 +46,7 @@
               <ion-slide ng-repeat='app in featuredDeals' on-touch="onTouch()" on-release="onRelease()">
                 <a class="details" href="#/appDetails/{{app.appid}}">  
                   <div class="item item-image">
-                    <img ng-src="{{app.imageUrl}}"  alt='Thumbnail' holder>
+                    <img ng-src="{{app.imageUrl}}" err-src="img/SPB_ImgnotFoundBig.png"  alt='Thumbnail' holder>
                   </div>
                 </a>
                 <div class="item item-text-wrap no-padding">
@@ -70,6 +75,10 @@
         </ion-content>
       </ion-slide>
 
+      <!-- ********************** -->
+      <!--   Second Tab Content   -->
+      <!-- ********************** -->
+
       <ion-slide class="has-header-spb" on-swipe-left="sliding()" on-swipe-right="sliding()" on-swipe-up="scrolling()" on-swipe-down="scrolling()">
         <ion-content has-bouncing="false" overflow-scroll="false">
         <ion-refresher
@@ -77,7 +86,7 @@
             on-refresh="doRefresh()">
           </ion-refresher>
           <div class="card listitem"
-            collection-repeat="app in appItems"
+            collection-repeat="app in appItems | filter:applyFilters"
             collection-item-width="'49%'"
             collection-item-height="'145px'"
             item-render-buffer="8"
@@ -87,7 +96,7 @@
                 {{app.name}}
               </div>
               <ion-item class="item item-image" >
-                <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{app.appid}}/capsule_184x69.jpg">
+                <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{app.appid}}/capsule_184x69.jpg" err-src="img/SPB_ImgnotFound.png">
               </ion-item>
             </a>
             <div class="item item-text-wrap no-padding">
@@ -104,6 +113,10 @@
     </ion-slide-box>
   </ion-side-menu-content>
   
+  <!-- ********************** -->
+  <!-- Left Side Menu Content -->
+  <!-- ********************** -->
+
   <ion-side-menu side="left" class="left-menu" ng-controller="SideMenuCtrl">
     <ion-content class="left-menu-content">
     <ion-list>
@@ -123,16 +136,20 @@
         <ion-list ng-if="isOpen(filter.name)">
             <ion-item ng-repeat="value in filter.values" class="inset">
               {{value.name}}
+
+              <!-- Toggle Inputs -->
               <label ng-if="value.display === 'toggle'" class="toggle">
-                <input type="checkbox">
+                <input type="checkbox" ng-model="value.value">
                 <div class="track">
                   <div class="handle"></div>
                 </div>
               </label>
+
+              <!-- Range Inputs -->
               <div ng-if="value.display === 'range'" class="range">
                 <div>{{value.value}}</div>
-                <input type="range" name="range" ng-model="rangeValue" ng-change="drag(filter, value, rangeValue)">
-                <div>100</div>
+                <input type="range" name="range" ng-model="value.value" max="{{value.max}}">
+                <div>{{value.max}}</div>
                 
               </div>
             </ion-item>

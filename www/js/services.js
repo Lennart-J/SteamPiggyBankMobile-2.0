@@ -46,38 +46,44 @@ angular.module('SteamPiggyBank.services', [])
   var filters = [
     {
       'name' : 'Price',
-      'values' : [{'name' : 'Maximum', 'display' : 'range', 'value' : '100'}, {'name' : 'Minimum', 'display' : 'range', 'value' : '0'}]
+      'values' : [{'name' : 'Maximum', 'display' : 'range', 'value' : '100', 'max' : '100'}, {'name' : 'Minimum', 'display' : 'range', 'value' : '0', 'max' : '100'}]
     },
     {
       'name' : 'Discount',
-      'values' : [{'name' : 'Minimum', 'display' : 'range', 'value' : '0'}]
+      'values' : [{'name' : 'Minimum', 'display' : 'range', 'value' : '0', 'max' : '100'}]
     },
     {
       'name' : 'Type',
-      'values' : [{'name' : 'Game', 'display' : 'toggle'}, {'name' : 'DLC', 'display' : 'toggle'}, {'name' : 'Package', 'display' : 'toggle'}, {'name' : 'Software', 'display' : 'toggle'}]
+      'values' : [{'name' : 'Game', 'display' : 'toggle', 'value' : true}, {'name' : 'DLC', 'display' : 'toggle', 'value' : true}, {'name' : 'Package', 'display' : 'toggle', 'value' : true}, {'name' : 'Software', 'display' : 'toggle', 'value' : true}]
     },
     {
       'name' : 'Platforms',
-      'values' : [{'name' : 'Windows', 'display' : 'toggle'}, {'name' : 'Mac', 'display' : 'toggle'}, {'name' : 'Linux', 'display' : 'toggle'}]
+      'values' : [{'name' : 'Windows', 'display' : 'toggle', 'value' : true}, {'name' : 'Mac', 'display' : 'toggle', 'value' : true}, {'name' : 'Linux', 'display' : 'toggle' , 'value' : true}]
     }
   ];
 
-  this.setFilterValue = function(filter, value, newValue) {
-    $.each(filters, function(key, el) {
-      if (el.name === filter.name) {
-        $.each(el.values, function(key, val) {
-          if (val.name === value.name) {
-            val.value = newValue;
-            return;
-          }
-        });
-        return;
+  this.getFilters = function() {
+    return filters;
+  };
+
+  this.getFilter = function(name) {
+    $.each(filters, function(index, filter) {
+      console.log(filter.name, name);
+      if (filter.name === name) {
+        console.log("FOUND IT");
+        return filter;
       }
     });
   };
 
-  this.getFilters = function() {
-    return filters;
+  this.getFilterValue = function(filterName, valueName) {
+    for (var i = 0, filterLength = filters.length; i < filterLength; i++) {
+      if (filters[i].name === filterName) {
+        for (var j = 0, valuesLength = filters[i].values.length; j < valuesLength; j++) {
+          if (filters[i].values[j].name === valueName) return filters[i].values[j].value;
+        }
+      }
+    }
   };
 
 
