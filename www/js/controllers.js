@@ -188,7 +188,7 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate', 'ngCordova'])
   $scope.goToAppDetails = function(app) {
     var app = app || $scope.app;
     $scope.popover.remove();
-    $state.go('appDetails', {appId : app.appid});
+    $state.go('appDetails', {appId : app.appid, packageId : app.packageid});
   };
 
   $scope.showSearch = function() {
@@ -226,6 +226,12 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate', 'ngCordova'])
     return "Featured Deals";
   };
 
+  /*$scope.goToAppDetails = function(app) {
+    var app = app || $scope.app;
+    $scope.popover.remove();
+    $state.go('appDetails', {appId : app.appid, packageId : app.packageid});
+  };*/
+
   $scope.showAppDetails = function() {
     $state.go('appDetails');
   };
@@ -234,8 +240,31 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate', 'ngCordova'])
 
 
 .controller('appDetailsCtrl', function($scope, $ionicSlideBoxDelegate, $state, $stateParams, requestService) {
+  $scope.openHorizontalTabs = [];
+  console.log('packageID in URL: ', $stateParams.packageId);
+  $scope.appItem = requestService.getCurrentApp($stateParams.appId, $stateParams.packageId);
+  var promiseAppDetails = requestService.getAppItemDetails($stateParams.appId, $stateParams.packageId);
+  promiseAppDetails.then(function(data) {
+    $scope.categories = data.categories;
+    $scope.userTags = data.userTags;
+    $scope.userScore = data.userScore;
+    $scope.description = data.description;
+    console.log('categories: ', $scope.categories );
+  });
 
-  $scope.appItem = requestService.getCurrentApp($stateParams.appId);
+  var promiseMetaScore = requestService.getMetaScore($stateParams.appId, $stateParams.packageId);
+  promiseMetaScore.then(function(data){
+    $scope.metaScore = data.metaScore;
+    $scope.windows = data.windows;
+    $scope.linux = data.linux;
+    $scope.mac = data.mac;
+  }, function(reason){
+    $scope.metaScore = 0;
+    $scope.windows = true;
+    $scope.linux = false;
+    $scope.mac = false;
+  });
+
 
   $scope.showNext = function() {
     $ionicSlideBoxDelegate.next();
@@ -252,6 +281,20 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate', 'ngCordova'])
   $scope.getAppDetails = function() {
     return "Featured Deals";
   };
+
+  $scope.toggle = function(tabName) {
+    var index = $scope.openHorizontalTabs.indexOf(tabName);
+    if (index > -1) {
+      $scope.openHorizontalTabs.splice(index, 1);
+    } else {
+      $scope.openHorizontalTabs.push(tabName);
+    }
+  };
+
+  $scope.isOpen = function(tabName) {
+    return $scope.openHorizontalTabs.indexOf(tabName) > -1;
+  };
+
 })
 
 

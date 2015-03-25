@@ -35,7 +35,7 @@ angular.module('SteamPiggyBank', ['ionic', 'SteamPiggyBank.controllers', 'SteamP
     controller: 'IntroCtrl'
   })
   .state('appDetails', {
-    url: '/appDetails/:appId',
+    url: '/appDetails/:appId?packageId',
     templateUrl: 'templates/appDetails.html',
     controller: 'appDetailsCtrl'
   })

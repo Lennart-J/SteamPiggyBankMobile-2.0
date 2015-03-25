@@ -87,13 +87,21 @@ angular.module('SteamPiggyBank.services', [])
 
   var allAppsOnSale = [];
 
-  this.getCurrentApp = function(appId) {
+  this.getCurrentApp = function(appId, packageId) {
+    var currentApp;
     for (var i = 0; i < allAppsOnSale.length; i++) {
-        if (allAppsOnSale[i].appid === appId) {
-          return allAppsOnSale[i];
+      if (allAppsOnSale[i].appid === appId) {
+        currentApp = allAppsOnSale[i];
+      }
+    }
+    if (!currentApp && packageId)  {
+      for (var i = 0; i < allAppsOnSale.length; i++) {
+        if (allAppsOnSale[i].packageid === packageId) {
+          currentApp = allAppsOnSale[i];
         }
       }
-      return null;
+    }
+    return currentApp;
   };
 
 
@@ -169,14 +177,140 @@ angular.module('SteamPiggyBank.services', [])
     $http.get('http://store.steampowered.com/api/featuredcategories/')
       .success(function(data) {
         featuredDeals = parseFeaturedDeals(data);
+        allAppsOnSale = allAppsOnSale.concat(featuredDeals);
+        console.log('allAppsOnSale: ', allAppsOnSale);
         defer.resolve(featuredDeals);
       });
 
     return defer.promise;
   };
 
+  this.getAppItemDetails = function(appId, packageId) {
+    var categories = [], description, $data, defer = $q.defer(), app, userTags = [], appItemDetails = [];
+    app = this.getCurrentApp(appId, packageId);
+    console.log("appId: ", appId);
+    console.log("packageId: ", packageId);
+    if (appId) {
+      $http.get('http://store.steampowered.com/apphover/' + appId)
+        .success(function(data){
+          $data = $(data);       
+          categories = getCategories($data);
+          userTags = getUserTags($data);
+          description = getDescription($data);
+          defer.resolve({'categories':categories, 'userTags':userTags, 'description':description});
+          console.log('getDescription: ', description);
+        });
+    } else {
+      $http.get('http://store.steampowered.com/subhover/' + packageId)
+        .success(function(data){
+          $data = $(data);       
+          categories = getCategories($data);
+          userTags = getUserTags($data);
+          description = getDescription($data);
+          defer.resolve({'categories':categories, 'userTags':userTags, 'description':description});
+          console.log('getCategories: ', categories);
+        });
+    }
+    return defer.promise;
+  };
+
+  this.getMetaScore = function(appId, packageId) {
+    var metaScore, app,windows, linux, mac, defer = $q.defer();
+    app = this.getCurrentApp(appId, packageId);
+    if (app && app.appid) {
+      $http.get('http://store.steampowered.com/api/appdetails/?appids='+appId+'&filters=metacritic,platforms')
+      .success(function(data){
+        console.log('platforms: ',data[appId].data.platforms);
+        if(data[appId].data){
+          if(data[appId].data.metacritic) {
+            metaScore = data[appId].data.metacritic.score;
+          } else {
+            metaScore=0;
+          }
+          if(data[appId].data.platforms) {
+            windows = data[appId].data.platforms.windows;
+            mac = data[appId].data.platforms.mac;
+            linux = data[appId].data.platforms.linux;
+          } else {
+            windows = true;
+            linux = false;
+            mac = false;
+          }
+          defer.resolve({'metaScore': metaScore, 'windows':windows, 'mac':mac, 'linux':linux});
+      }
+      });
+    } else {
+      $http.get('http://store.steampowered.com/api/packagedetails/?packageids='+packageId+'&filters=platforms')
+      .success(function(data){
+        if(data[packageId].data.platforms) {
+            windows = data[packageId].data.platforms.windows;
+            mac = data[packageId].data.platforms.mac;
+            linux = data[packageId].data.platforms.linux;
+          } else {
+            windows = true;
+            linux = false;
+            mac = false;
+          }
+          metaScore = 0;
+          defer.resolve({'metaScore':metaScore, 'windows':windows, 'mac':mac, 'linux':linux});
+      });
+    }
+    return defer.promise;
+  };
+
 
   //private functions
+
+  var getDescription = function(parent) {
+    console.log('description: ', parent.find('#hover_desc').html());
+    return parent.find('#hover_desc').html();
+  };
+
+  var getUserTags = function(parent){
+    var userTags = [], bestTags = [], i=0;
+    try {
+      var gt = parent.find('.app_tag');
+       $.each(gt, function(key, el) {
+        var $el = $(el);
+        var tag = $el.html();
+        userTags.push(tag);
+        });
+        while(i<6 && userTags[i]!== undefined) {
+          bestTags.push(userTags[i]);
+          i++;
+        }
+       console.log('UserTags: ', userTags);
+       console.log('bestTags: ', bestTags);
+      
+     }
+     catch(e) {
+        bestTags.push(' - ');
+     } 
+     return bestTags;
+  };
+
+  var getCategories = function(parent) {
+    var categories = [], doublie=false;
+    try {
+      var gt = parent.find('.hover_category_icon');
+       $.each(gt, function(key, el) {
+        var $el = $(el);
+        var src = $el.find('img').attr('src');
+        for(var i=0; i<categories.length; i++) {
+          if(categories[i] === src) {
+            doublie=true;
+          }
+        }
+        if(doublie === false) {
+          categories.push(src);
+        }
+      });
+     } catch(el) {
+
+     }
+     return categories;
+  };
+
   var findLastSalePage = function(parent) {
     return parent.find('.pagebtn').prev().html();
   };
@@ -186,12 +320,15 @@ angular.module('SteamPiggyBank.services', [])
   };
 
   var findAllUserTags = function(parent) {
-    var tagArray = [],
+    var tagArray = [];
+    try {
       tagElements = parent.find('#TagFilter_Container .tab_filter_control');
-
-    $.each(tagElements, function(key, el) {
+       $.each(tagElements, function(key, el) {
       tagArray.push($(el).data('loc'));
     });
+    } catch(el) {
+
+    }
 
     return tagArray;
   };
@@ -202,7 +339,6 @@ angular.module('SteamPiggyBank.services', [])
     $.each(list, function(key, el) {
       var $el = $(el),
         urcText = getUserReviewScoreText($el);
-
 
       appitem.appid = getAppId($el);
       appitem.packageid = getPackageId($el);
@@ -215,8 +351,6 @@ angular.module('SteamPiggyBank.services', [])
       appitem.urcScore = getUrcScore(urcText);
       appitem.urcClass = getUserReviewScoreClass($el);
       appitem.imageUrl = appitem.packageid ? getPackageImage(appitem.packageid) : getAppImage(appitem.appid);
-
-
 
       appitems.push(appitem);
       appitem = {};
@@ -363,10 +497,10 @@ angular.module('SteamPiggyBank.services', [])
 
         if (el.discounted) {
           if (el.type === 0) {
-            deal.appid = el.id;
+            deal.appid = parseInt(el.id);
             deal.packageid = null;
           } else if (el.type === 1) {
-            deal.packageid = el.id;
+            deal.packageid = parseInt(el.id);
             deal.appid = null;
           }
           deal.name = el.name;
