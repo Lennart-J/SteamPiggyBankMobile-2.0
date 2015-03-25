@@ -1,13 +1,14 @@
 'use strict';
 angular.module('SteamPiggyBank.controllers', ['ngAnimate', 'ngCordova'])
 
-.controller('IntroCtrl', function($scope, $rootScope, requestService, $state, $http, $q, $ionicPopover, $ionicScrollDelegate, $ionicSideMenuDelegate, $ionicBackdrop, $ionicSlideBoxDelegate, $ionicGesture, $ionicNavBarDelegate, $ionicLoading, $cordovaSocialSharing) {
+.controller('IntroCtrl', function($scope, $rootScope, requestService, filterService, $state, $http, $q, $ionicPopover, $ionicScrollDelegate, $ionicSideMenuDelegate, $ionicBackdrop, $ionicSlideBoxDelegate, $ionicGesture, $ionicNavBarDelegate, $ionicLoading, $cordovaSocialSharing, $timeout) {
 
   var mainSlider = angular.element(document.querySelector('.slider-slides')),
     swipeGesture = null;
 
   $scope.featuredDeals = [];
   $scope.appItems = [];
+  $scope.filters = filterService.getFilters();
 
   var promiseDailyDeal = requestService.getFrontPageDeals();
   promiseDailyDeal.then(function(data) {
@@ -33,6 +34,8 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate', 'ngCordova'])
     $scope.appItems = update;
     $rootScope.appItems = update;
     updateLoadingIndicator();
+  }).finally(function() {
+    console.warn("HELLO");
   });
 
   $scope.loadingIndicator = $ionicLoading.show({
@@ -55,17 +58,16 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate', 'ngCordova'])
   };
 
   $scope.doRefresh = function() {
-    var promiseAllApps = requestService.getAllApps();
-    promiseAllApps.then(function(data) {
-      //console.log(data);
-    }, function(reason) {
-      //console.log(reason);
-    }, function(update) {
-      //console.log(update);
-      $scope.appItems = update;
-      $rootScope.appItems = update;
-      updateLoadingIndicator();
-    }).finally(function() {
+    var promise = requestService.getAllApps();
+    //TODO not really working
+    $timeout(function() {
+      $scope.$broadcast('scroll.refreshComplete');
+    }, 1500);
+    promise.then(function(data) {
+      console.log(data);
+      $scope.appItems = data;
+      $rootScope.appItems = data;
+      //updateLoadingIndicator();
       $scope.$broadcast('scroll.refreshComplete');
     });
   };
@@ -141,6 +143,19 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate', 'ngCordova'])
   };
   $scope.showAppDetails = function() {
     $state.go('appDetails');
+  };
+
+  $scope.applyFilters = function(app) {
+    var max = filterService.getFilterValue('Price', 'Maximum'),
+      min = filterService.getFilterValue('Price', 'Minimum'),
+      discount = filterService.getFilterValue('Discount', 'Minimum');
+
+    //console.log("Filters: ", min, max, discount);
+
+    var appPrice = Number(app.finalprice.replace(/[^0-9\.]+/g,""))/100;
+    var appDiscount = Number(app.discount.replace(/[^0-9\.]+/g,""));
+    //console.log(app.finalprice, Number(app.finalprice.replace(/[^0-9\.]+/g,""))/100);
+    return appPrice >= min && appPrice <= max && appDiscount >= discount;
   };
 
   //___________________________//
@@ -329,15 +344,15 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate', 'ngCordova'])
 
   $scope.filters = filterService.getFilters();
   $scope.openFilters = [];
-  //$scope.rangeValue = "0";
+
+  //$scope.rangeValue = ;
+  /*$.each($scope.filters, function(index, element) {
+    $scope.rangeValue.push(element.value.value);
+  });*/
 
   $scope.isOpen = function(filterName) {
     return $scope.openFilters.indexOf(filterName) > -1;
   };
-
-  $scope.drag = function(filter, value, rangeValue) {
-    filterService.setFilterValue(filter, value, rangeValue);
-  }
 
   $scope.toggleDropDown = function(filter) {
     var index = $scope.openFilters.indexOf(filter.name);

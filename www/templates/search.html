@@ -17,6 +17,7 @@
       collection-repeat="app in appItems | filter:query"
       collection-item-width="'49%'"
       collection-item-height="'145px'"
+      item-render-buffer="8"
       ng-show="query[queryBy].length"
       >
       <a class="details" href="#/appDetails/{{app.appid}}">
@@ -25,7 +26,7 @@
           {{app.name}}
         </div>
         <ion-item class="item item-image" >
-          <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{app.appid}}/capsule_184x69.jpg" holder>
+          <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{app.appid}}/capsule_184x69.jpg" err-src="img/SPB_ImgnotFound.png">
         </ion-item>
       </a>
       <div class="item item-text-wrap no-padding">
@@ -36,5 +37,6 @@
         </div>
       </div>
     </div>
+    <br/><br/>
   </ion-content>
 </ion-view>
