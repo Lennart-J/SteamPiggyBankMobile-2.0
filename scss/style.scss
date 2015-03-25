@@ -28,25 +28,29 @@ body {
   }
 }
 
-.search {
+#search {
   height: 80%;
-  margin-top: 1px;
+  margin-top: 5px;
   margin-left: 5px;
   background: none;
   font-size: 1.2em;
+  -webkit-appearance: none;
+    -webkit-border-radius:0;
+    border-radius:0;
   
   input, .placeholder-icon {
-    color: white; 
+    color: black; 
   }
   input {
     font-size: 1em;
     height: 20px;
     background: none;
-    margin-top: 4px;
+    //margin-top: 8px;
     max-width: 80%;
     min-width: 215px;
     margin-left: 2px;
     border-bottom: 1px solid #AAA;
+
   }
   .placeholder-icon {
     //margin-top: 5px; 
@@ -101,7 +105,7 @@ body {
   margin-bottom: 20px; } */
 
 .left-menu {
-  top:46px;
+  //top:46px;
 
   .icon {
     font-size : 24px;
@@ -252,4 +256,8 @@ strike {
 
 #logo {
   margin: 30px 0px;
+}
+
+.blackX {
+  color: black;
 }
