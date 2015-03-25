@@ -1,14 +1,13 @@
-<ion-view title="" class="view" ng-cloak>
-  <ion-nav-bar class="bar-dark" animation="nav-title-slide-ios7" align-title="center">
-
+<ion-view title="" class="view">
+  <ion-nav-bar class="bar-dark" transition="ios" align-title="right">
      <ion-nav-back-button></button>
   </ion-nav-bar>
 
   <ion-nav-buttons>
   	 <div class="item-input-wrapper search" placeholder="Search" filter="search">
-      <i class="icon ion-ios7-search placeholder-icon"></i>
+      <!-- <i class="icon ion-ios7-search placeholder-icon"></i> -->
       <input type="search" placeholder="Search" id="search" ng-model="query[queryBy]">
-      <i class="icon ion-android-close" ng-show="query[queryBy].length" ng-click="clearSearch()"></i>
+      <i class="icon ion-android-close blackX" ng-show="query[queryBy].length" ng-click="clearSearch()"></i>
     </div>
   </ion-nav-buttons>
   
